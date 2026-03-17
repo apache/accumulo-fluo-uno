@@ -272,7 +272,7 @@ EOF
 }
 
 function uno_status_main() {
-  atmp="$(pgrep -f accumulo\\.start -a | awk '{pid = $1;for(i=1;i<=NF;i++)if($i=="org.apache.accumulo.start.Main")print $(i+1) "("pid")"}' | tr '\n' ' ')"
+  atmp="$(pgrep -f accumulo\\.start -a | awk '{pid = $1;for(i=1;i<=NF;i++)if($i=="org.apache.accumulo.start.Main"){name=$(i+1);if(name=="proc")name=$(i+2);if(name!="")print name "("pid")"}}' | tr '\n' ' ')"
   htmp="$(pgrep -f hadoop\\. -a | tr '.' ' ' | awk '{print $NF "(" $1 ")"}' | tr '\n' ' ')"
   ztmp="$(pgrep -f QuorumPeerMain | awk '{print "zoo(" $1 ")"}' | tr '\n' ' ')"
 
